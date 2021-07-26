@@ -16,7 +16,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.name_tag}-${var.environment}-igw"
+    Name = "${var.name_tag}-${var.environment}-gw"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
    route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.gw.id
   }
   tags = {
     Name = "${var.name_tag}-${var.environment}-public1-rt"
@@ -60,8 +60,8 @@ resource "aws_eip" "enatgateway2" {
   vpc      = true
 }
 
-resource "aws_nat_gateway2" "nat2" {
-  allocation_id = aws_eip.enatgateway2.id
+resource "aws_nat_gateway" "nat2" {
+  allocation_id = aws_eip.enatgateway.id
   subnet_id     = aws_subnet.public2.id
 
   tags = {
