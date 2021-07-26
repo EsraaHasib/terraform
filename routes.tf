@@ -61,7 +61,7 @@ resource "aws_eip" "enatgateway2" {
 }
 
 resource "aws_nat_gateway" "nat2" {
-  allocation_id = aws_eip.enatgateway.id
+  allocation_id = aws_eip.enatgateway2.id
   subnet_id     = aws_subnet.public2.id
 
   tags = {
